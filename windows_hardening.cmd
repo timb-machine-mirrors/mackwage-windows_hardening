@@ -111,14 +111,14 @@ Netsh.exe advfirewall firewall add rule name="Block runscripthelper.exe netconns
 ::
 :: Uninstall unneeded apps
 :: ---------------------
-wmic.exe /interactive:off product where "name like 'Adobe Air%' and version like'%'" call unininstall
-wmic.exe /interactive:off product where "name like 'Adobe Flash%' and version like'%'" call unininstall
-wmic.exe /interactive:off product where "name like 'Java%' and version like'%'" call unininstall
+wmic.exe /interactive:off product where "name like 'Adobe Air%' and version like'%'" call uninstall
+wmic.exe /interactive:off product where "name like 'Adobe Flash%' and version like'%'" call uninstall
+wmic.exe /interactive:off product where "name like 'Java%' and version like'%'" call uninstall
 ::#######################################################################
 ::
 :: Uninstall pups
 :: ---------------------
-wmic.exe /interactive:off product where "name like 'Ask Part%' and version like'%'" call unininstall
-wmic.exe /interactive:off product where "name like 'searchAssistant%' and version like'%'" call unininstall
-wmic.exe /interactive:off product where "name like 'Weatherbug%' and version like'%'" call unininstall
-wmic.exe /interactive:off product where "name like 'ShopAtHome%' and version like'%'" call unininstall
+wmic.exe /interactive:off product where "name like 'Ask Part%' and version like'%'" call uninstall
+wmic.exe /interactive:off product where "name like 'searchAssistant%' and version like'%'" call uninstall
+wmic.exe /interactive:off product where "name like 'Weatherbug%' and version like'%'" call uninstall
+wmic.exe /interactive:off product where "name like 'ShopAtHome%' and version like'%'" call uninstall
