@@ -25,6 +25,10 @@ powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids 5BEB7EFE-FD9A-4
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550 -AttackSurfaceReductionRules_Actions Enabled
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids D3E037E1-3EB8-44C8-A917-57927947596D -AttackSurfaceReductionRules_Actions Enabled
 ::
+::Use ASR to blocked cred theft from lsass and unsigned procs from running from USB
+::
+powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 -AttackSurfaceReductionRules_Actions Enabled
+powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 -AttackSurfaceReductionRules_Actions Enabled
 ::#######################################################################
 ::
 :: Harden all version of MS Office itself against common malspam attacks
@@ -118,7 +122,7 @@ wmic.exe /interactive:off product where "name like 'Java%' and version like'%'" 
 ::
 :: Uninstall pups
 :: ---------------------
-wmic.exe /interactive:off product where "name like 'Ask Part%' and version like'%'" call uninstall
-wmic.exe /interactive:off product where "name like 'searchAssistant%' and version like'%'" call uninstall
-wmic.exe /interactive:off product where "name like 'Weatherbug%' and version like'%'" call uninstall
-wmic.exe /interactive:off product where "name like 'ShopAtHome%' and version like'%'" call uninstall
+:: wmic.exe /interactive:off product where "name like 'Ask Part%' and version like'%'" call uninstall
+:: wmic.exe /interactive:off product where "name like 'searchAssistant%' and version like'%'" call uninstall
+:: wmic.exe /interactive:off product where "name like 'Weatherbug%' and version like'%'" call uninstall
+:: wmic.exe /interactive:off product where "name like 'ShopAtHome%' and version like'%'" call uninstall
