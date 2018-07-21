@@ -15,6 +15,7 @@ ftype batfile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
 :: Blocks Office childprocs, Office proc injection, Office win32 api calls & executable content creation
 :: Note these only work when Defender is your primary AV
 :: Source: https://www.darkoperator.com/blog/2017/11/11/windows-defender-exploit-guard-asr-rules-for-office
+:: Source: https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/attack-surface-reduction-exploit-guard
 :: ---------------------
 ::%programfiles%\"Windows Defender"\MpCmdRun.exe -RestoreDefaults
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids D4F940AB-401B-4EFC-AADC-AD5F3C50688A -AttackSurfaceReductionRules_Actions Enabled
