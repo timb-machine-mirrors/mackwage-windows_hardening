@@ -28,8 +28,14 @@ powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids D3E037E1-3EB8-4
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids d1e49aac-8f56-4280-b9ba-993a6d77406c -AttackSurfaceReductionRules_Actions Enabled
 ::
 ::Enable Windows Defender sandboxing
+::Source: https://cloudblogs.microsoft.com/microsoftsecure/2018/10/26/windows-defender-antivirus-can-now-run-in-a-sandbox/
 ::
 setx /M MP_FORCE_USE_SANDBOX 1
+::
+::Enable Windows Defender Application Guard
+::Source: https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-guard/install-wd-app-guard 
+::
+powershell.exe Enable-WindowsOptionalFeature -online -FeatureName Windows-Defender-ApplicationGuard
 ::
 ::Use ASR to blocked cred theft from lsass and unsigned procs from running from USB
 ::
