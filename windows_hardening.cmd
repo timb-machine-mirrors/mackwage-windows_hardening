@@ -34,8 +34,9 @@ setx /M MP_FORCE_USE_SANDBOX 1
 ::
 ::Enable Windows Defender Application Guard
 ::Source: https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-guard/install-wd-app-guard 
+:: This setting is commented out as it eanbles subset of DC/CG which renders other virtualization products unsuable. Can be enabled if you don't use
 ::
-powershell.exe Enable-WindowsOptionalFeature -online -FeatureName Windows-Defender-ApplicationGuard -norestart
+::powershell.exe Enable-WindowsOptionalFeature -online -FeatureName Windows-Defender-ApplicationGuard -norestart
 ::
 ::Enable Defender exploit protection
 ::Source: https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection
