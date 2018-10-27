@@ -37,6 +37,11 @@ setx /M MP_FORCE_USE_SANDBOX 1
 ::
 powershell.exe Enable-WindowsOptionalFeature -online -FeatureName Windows-Defender-ApplicationGuard -norestart
 ::
+::Enable Defender exploit protection
+::Source: https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection
+::
+powershell.exe Set-Processmitigation -System -Enable DEP,CFG,ForceRelocateImages,BottomUp,SEHOP
+::
 ::Use ASR to blocked cred theft from lsass and unsigned procs from running from USB
 ::
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 -AttackSurfaceReductionRules_Actions Enabled
