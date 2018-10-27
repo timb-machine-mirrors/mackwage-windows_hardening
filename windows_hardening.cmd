@@ -35,7 +35,7 @@ setx /M MP_FORCE_USE_SANDBOX 1
 ::Enable Windows Defender Application Guard
 ::Source: https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-guard/install-wd-app-guard 
 ::
-powershell.exe Enable-WindowsOptionalFeature -online -FeatureName Windows-Defender-ApplicationGuard
+powershell.exe Enable-WindowsOptionalFeature -online -FeatureName Windows-Defender-ApplicationGuard -norestart
 ::
 ::Use ASR to blocked cred theft from lsass and unsigned procs from running from USB
 ::
@@ -88,9 +88,9 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" /v SMB1
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 1 /f
 net stop WinRM
 wmic /interactive:off nicconfig where TcpipNetbiosOptions=1 call SetTcpipNetbios 2
-powershell.exe Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol
-powershell.exe Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2
-powershell.exe Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
+powershell.exe Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol -norestart
+powershell.exe Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2 -norestart
+powershell.exe Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -norestart
 ::
 ::#######################################################################
 ::
