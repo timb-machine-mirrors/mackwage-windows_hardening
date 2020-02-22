@@ -11,21 +11,47 @@ ftype batfile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
 ::
 ::#######################################################################
 ::
-:: Enable ASR rules in Win10 1709 ExploitGuard to mitigate Offic malspam
+:: Enable ASR rules in Win10 1709 ExploitGuard to mitigate Office malspam
 :: Blocks Office childprocs, Office proc injection, Office win32 api calls & executable content creation
 :: Note these only work when Defender is your primary AV
 :: Source: https://www.darkoperator.com/blog/2017/11/11/windows-defender-exploit-guard-asr-rules-for-office
 :: Source: https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/attack-surface-reduction-exploit-guard
+:: Source: https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/attack-surface-reduction
+:: Easy methods to test rules https://demo.wd.microsoft.com/?ocid=cx-wddocs-testground
+:: Resource on the rules and associated event IDs https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/event-views
 :: ---------------------
+:: Reset Defender to defaults. Commented out but available for reference
 ::%programfiles%\"Windows Defender"\MpCmdRun.exe -RestoreDefaults
+::
+:: Block Office Child Process Creation 
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids D4F940AB-401B-4EFC-AADC-AD5F3C50688A -AttackSurfaceReductionRules_Actions Enabled
+:: Block Process Injection
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids 75668C1F-73B5-4CF0-BB93-3ECF5CB7CC84 -AttackSurfaceReductionRules_Actions Enabled
+:: Block Win32 API calls in macros
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids 92E97FA1-2EDF-4476-BDD6-9DD0B4DDDC7B -AttackSurfaceReductionRules_Actions Enabled
+:: Block Office from creating executables
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids 3B576869-A4EC-4529-8536-B80A7769E899 -AttackSurfaceReductionRules_Actions Enabled
+:: Block execution of potentially obfuscated scripts
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids 5BEB7EFE-FD9A-4556-801D-275E5FFC04CC -AttackSurfaceReductionRules_Actions Enabled
+:: Block executable content from email client and webmail
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550 -AttackSurfaceReductionRules_Actions Enabled
+:: Block JavaScript or VBScript from launching downloaded executable content
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids D3E037E1-3EB8-44C8-A917-57927947596D -AttackSurfaceReductionRules_Actions Enabled
-powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids d1e49aac-8f56-4280-b9ba-993a6d77406c -AttackSurfaceReductionRules_Actions Enabled
+:: Block lsass cred theft
+powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 -AttackSurfaceReductionRules_Actions Enabled
+:: Block untrusted and unsigned processes that run from USB
+powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 -AttackSurfaceReductionRules_Actions Enabled
+:: Block Adobe Reader from creating child processes
+powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c -AttackSurfaceReductionRules_Actions Enabled
+:: Block persistence through WMI event subscription
+:: This one is commented out as it is currently not supported by MS
+:: powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids e6db77e5-3df2-4cf1-b95a-636979351e5b -AttackSurfaceReductionRules_Actions Enabled
+:: Block process creations originating from PSExec and WMI commands
+:: This one is commented out as it is currently not supported by MS
+::powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids d1e49aac-8f56-4280-b9ba-993a6d77406c -AttackSurfaceReductionRules_Actions Enabled
+:: Block executable files from running unless they meet a prevalence, age, or trusted list criterion
+:: This one is commented out for now as I need to research and test more to determine potential impact
+:: powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids 01443614-cd74-433a-b99e-2ecdc07bfc25 -AttackSurfaceReductionRules_Actions Enabled
 ::
 ::Enable Windows Defender sandboxing
 ::Source: https://cloudblogs.microsoft.com/microsoftsecure/2018/10/26/windows-defender-antivirus-can-now-run-in-a-sandbox/
@@ -41,12 +67,11 @@ setx /M MP_FORCE_USE_SANDBOX 1
 ::Enable Defender exploit protection
 ::Source: https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection
 ::
-powershell.exe Set-Processmitigation -System -Enable DEP,CFG,ForceRelocateImages,BottomUp,SEHOP
+powershell.exe Set-Processmitigation -System -Enable DEP,BottomUp,SEHOP
 ::
-::Use ASR to blocked cred theft from lsass and unsigned procs from running from USB
+:: The following variant also enables forced ASLR and CFG but causes issues with several third party apps
+::powershell.exe Set-Processmitigation -System -Enable DEP,CFG,ForceRelocateImages,BottomUp,SEHOP
 ::
-powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 -AttackSurfaceReductionRules_Actions Enabled
-powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 -AttackSurfaceReductionRules_Actions Enabled
 ::#######################################################################
 ::
 :: Harden all version of MS Office itself against common malspam attacks
@@ -100,8 +125,8 @@ powershell.exe Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWind
 ::
 ::#######################################################################
 ::
-:: Harden lsass to help protect against credential dumping (mimikatz)
-:: Configures lsass.exe as a protected process and disabled wdigest
+:: Harden lsass to help protect against credential dumping (mimikatz) and audit lsass access requests
+:: Configures lsass.exe as a protected process and disables wdigest
 :: Source: https://technet.microsoft.com/en-us/library/dn408187(v=ws.11).aspx
 :: ---------------------
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe" /v AuditLevel /t REG_DWORD /d 00000008 /f
@@ -134,9 +159,9 @@ Netsh.exe advfirewall firewall add rule name="Block hh.exe netconns" program="%s
 ::
 :: Uninstall unneeded apps
 :: ---------------------
-wmic.exe /interactive:off product where "name like 'Adobe Air%' and version like'%'" call uninstall
-wmic.exe /interactive:off product where "name like 'Adobe Flash%' and version like'%'" call uninstall
-wmic.exe /interactive:off product where "name like 'Java%' and version like'%'" call uninstall
+::wmic.exe /interactive:off product where "name like 'Adobe Air%' and version like'%'" call uninstall
+::wmic.exe /interactive:off product where "name like 'Adobe Flash%' and version like'%'" call uninstall
+::wmic.exe /interactive:off product where "name like 'Java%' and version like'%'" call uninstall
 ::#######################################################################
 ::
 :: Uninstall pups
