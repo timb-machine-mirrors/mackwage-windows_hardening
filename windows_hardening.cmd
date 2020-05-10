@@ -11,8 +11,13 @@
 :: Alternatively, you can right-click on them and hit 'Run as Administrator' but ensure it's a script you want to run :) 
 :: ---------------------
 ftype htafile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
-ftype WSHFile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
+ftype wshfile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
+ftype wsffile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
 ftype batfile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
+ftype jsfile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
+ftype jsefile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
+ftype vbefile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
+ftype vbsfile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
 ::
 ::#######################################################################
 :: Enable and configure Windows Defender and advanced settings
