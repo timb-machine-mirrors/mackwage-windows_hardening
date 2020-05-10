@@ -69,7 +69,9 @@ powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids e6db77e5-3df2-4
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids d1e49aac-8f56-4280-b9ba-993a6d77406c -AttackSurfaceReductionRules_Actions Enabled
 ::
 :: Enable Defender exploit system-wide protection
-powershell.exe Set-Processmitigation -System -Enable DEP,EmulateAtlThunks,BottomUp,HighEntropy,SEHOP,SEHOPTelemetry,CFG,TerminateOnError
+:: The more secure config is commented but can cause issues with apps like Discord & Mouse Without Borders
+:: powershell.exe Set-Processmitigation -System -Enable DEP,EmulateAtlThunks,BottomUp,HighEntropy,SEHOP,SEHOPTelemetry,CFG,TerminateOnError
+powershell.exe Set-Processmitigation -System -Enable DEP,BottomUp,SEHOP
 ::
 ::#######################################################################
 :: Enable and Configure Internet Browser Settings
@@ -185,6 +187,9 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" /v SignSecu
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v EnableSmartScreen /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v ShellSmartScreenLevel /t REG_SZ /d Block /f
 ::
+:: Enforce device driver signing
+BCDEDIT /set nointegritychecks OFF
+::
 :: Windows Update Settings
 :: Prevent Delivery Optimization from downloading Updates from other computers across the internet
 :: 1 will restrict to LAN only. 0 will disable the feature entirely
@@ -294,6 +299,8 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v LimitEnhanc
 :: Set Windows Telemetry to security only
 :: If you intend to use Enhanced for Windows Analytics then set this to "2" instead
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f
+:: Disable location data
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore" /v Location /t REG_SZ /d Deny /f
 ::
 :: Disable Windows GameDVR (Broadcasting and Recording)
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR" /v AllowGameDVR /t REG_DWORD /d 0 /f
@@ -307,9 +314,35 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotificatio
 ::#######################################################################
 ::
 :: Enlarge Windows Event Security Log Size
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security" /v MaxSize /t REG_DWORD /d 1024000 /f
+wevtutil sl Security /ms:1024000 /f
+wevtutil sl Application /ms:1024000 /f
+wevtutil sl System /ms:1024000 /f
+wevtutil sl "Windows Powershell" /ms:1024000 /f
+wevtutil sl "Microsoft-Windows-PowerShell/Operational" /ms:1024000 /f
 :: Record command line data in process creation events eventid 4688
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit" /v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 1 /f
+::
+:: Enabled Advanced Settings
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" /v SCENoApplyLegacyAuditPolicy /t REG_DWORD /d 1 /f
+:: Enable PowerShell Logging
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging" /v EnableModuleLogging /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging" /v EnableScriptBlockLogging /t REG_DWORD /d 1 /f
+::
+:: Enable Windows Event Detailed Logging
+:: This is intentionally meant to be a subset of expected enterprise logging as this script may be used on consumer devices.
+:: For more extensive Windows logging, I recommend https://www.malwarearchaeology.com/cheat-sheets
+Auditpol /set /subcategory:"Security Group Management" /success:enable /failure:enable
+Auditpol /set /subcategory:"Process Creation" /success:enable /failure:enable
+Auditpol /set /subcategory:"Logoff" /success:enable /failure:disable
+Auditpol /set /subcategory:"Logon" /success:enable /failure:enable 
+Auditpol /set /subcategory:"Filtering Platform Connection" /success:enable /failure:disable
+Auditpol /set /subcategory:"Removable Storage" /success:enable /failure:enable
+Auditpol /set /subcategory:"SAM" /success:disable /failure:disable
+Auditpol /set /subcategory:"Filtering Platform Policy Change" /success:disable /failure:disable
+Auditpol /set /subcategory:"IPsec Driver" /success:enable /failure:enable
+Auditpol /set /subcategory:"Security State Change" /success:enable /failure:enable
+Auditpol /set /subcategory:"Security System Extension" /success:enable /failure:enable
+Auditpol /set /subcategory:"System Integrity" /success:enable /failure:enable
 ::
 ::#######################################################################
 :: Extra settings commented out but worth considering
