@@ -69,7 +69,7 @@ powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids e6db77e5-3df2-4
 powershell.exe Add-MpPreference -AttackSurfaceReductionRules_Ids d1e49aac-8f56-4280-b9ba-993a6d77406c -AttackSurfaceReductionRules_Actions Enabled
 ::
 :: Enable Defender exploit system-wide protection
-powershell.exe Set-Processmitigation -System -Enable DEP,BottomUp,SEHOP
+powershell.exe Set-Processmitigation -System -Enable DEP,EmulateAtlThunks,BottomUp,HighEntropy,SEHOP,SEHOPTelemetry,CFG,TerminateOnError
 ::
 ::#######################################################################
 :: Enable and Configure Internet Browser Settings
