@@ -3,6 +3,7 @@
 :: Obligatory 'views are my own'. :) 
 :: Thank you @jaredhaight for the Win Firewall config recommendations!
 :: Thank you @ricardojba for the DLL Safe Order Search reg key! 
+:: Thank you @jessicaknotts for the help on testing Exploit Guard configs and checking privacy settings!
 :: Best script I've found for Debloating Windows 10: https://github.com/Sycnex/Windows10Debloater
 ::
 ::#######################################################################
