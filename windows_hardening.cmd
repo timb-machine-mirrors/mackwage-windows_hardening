@@ -42,7 +42,7 @@ powershell.exe Set-MpPreference -PUAProtection enable
 reg add "HKCU\SOFTWARE\Microsoft\Windows Defender" /v PassiveMode /t REG_DWORD /d 2 /f
 :: Enable Cloud functionality of Windows Defender
 powershell.exe Set-MpPreference -MAPSReporting Advanced
-powershell.exe Set-MpPreference -SubmitSamplesConsent Always
+powershell.exe Set-MpPreference -SubmitSamplesConsent 0
 ::
 :: Enable early launch antimalware driver for scan of boot-start drivers
 :: 3 is the default which allows good, unknown and 'bad but critical'. Recommend trying 1 for 'good and unknown' or 8 which is 'good only'
