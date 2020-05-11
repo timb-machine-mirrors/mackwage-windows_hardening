@@ -98,19 +98,19 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\MicrosoftEdge\Main" /v "FormSuggest Pa
 :: Enable and Configure Google Chrome Internet Browser Settings
 ::#######################################################################
 ::
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "AdvancedProtectionAllowed" /t REG_DWORD /d 1 /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "AllowCrossOriginAuthPrompt" /t REG_DWORD /d 0 /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "AlwaysOpenPdfExternally" /t REG_DWORD /d 1 /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "AmbientAuthenticationInPrivateModesEnabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "AudioCaptureAllowed" /t REG_DWORD /d 0 /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "AudioSandboxEnabled" /t REG_DWORD /d 1 /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "BlockExternalExtensions" /t REG_DWORD /d 1 /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "DnsOverHttpsMode" /t REG_SZ /d on /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "SSLVersionMin" /t REG_SZ /d tls1 /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "ScreenCaptureAllowed" /t REG_DWORD /d 0 /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "SitePerProcess" /t REG_DWORD /d 1 /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "TLS13HardeningForLocalAnchorsEnabled" /t REG_DWORD /d 1 /f
-reg add "HKCU\SOFTWARE\Policies\Policies\Google\Chrome" /v "VideoCaptureAllowed" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AdvancedProtectionAllowed" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AllowCrossOriginAuthPrompt" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AlwaysOpenPdfExternally" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AmbientAuthenticationInPrivateModesEnabled" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AudioCaptureAllowed" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AudioSandboxEnabled" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "BlockExternalExtensions" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DnsOverHttpsMode" /t REG_SZ /d on /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "SSLVersionMin" /t REG_SZ /d tls1 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "ScreenCaptureAllowed" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "SitePerProcess" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "TLS13HardeningForLocalAnchorsEnabled" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "VideoCaptureAllowed" /t REG_DWORD /d 0 /f
 ::
 ::#######################################################################
 :: Enable and Configure Microsoft Office Security Settings
@@ -422,7 +422,6 @@ powershell.exe -command "Get-AppxPackage *ActiproSoftware* -AllUsers | Remove-Ap
 powershell.exe -command "Get-AppxPackage *EclipseManager* -AllUsers | Remove-AppxPackage"
 powershell.exe -command "Get-AppxPackage *SpotifyAB.SpotifyMusic* -AllUsers | Remove-AppxPackage"
 powershell.exe -command "Get-AppxPackage *king.com.* -AllUsers | Remove-AppxPackage"
-powershell.exe -command "Get-AppxPackage *xboxapp* -AllUsers | Remove-AppxPackage"
 ::
 ::#######################################################################
 :: Extra settings commented out but worth considering
