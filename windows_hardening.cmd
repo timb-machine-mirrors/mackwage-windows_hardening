@@ -27,6 +27,8 @@ ftype vbsfile="%SystemRoot%\system32\NOTEPAD.EXE" "%1"
 ::
 :: Reset Defender to defaults. Commented out but available for reference
 ::"%programfiles%"\"Windows Defender"\MpCmdRun.exe -RestoreDefaults
+:: https://docs.microsoft.com/en-us/windows/client-management/mdm/policy-csp-defender#defender-submitsamplesconsent
+:: https://docs.microsoft.com/en-us/powershell/module/defender/set-mppreference?view=win10-ps
 ::
 :: Start Defender Service
 sc start WinDefend
@@ -371,7 +373,7 @@ Auditpol /set /subcategory:"System Integrity" /success:enable /failure:enable
 :: Uninstall common extra apps found on a lot of Win10 installs
 :: Obviously do a quick review to ensure it isn't removing any apps you or your user need to use.
 :: https://docs.microsoft.com/en-us/windows/application-management/apps-in-windows-10
-:: PowerShell ommand to reinstall all pre-installed apps below
+:: PowerShell command to reinstall all pre-installed apps below
 :: Get-AppxPackage -AllUsers| Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 powershell.exe -command "Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage"
 powershell.exe -command "Get-AppxPackage *Microsoft.DesktopAppInstaller* -AllUsers | Remove-AppxPackage"
