@@ -135,12 +135,6 @@ reg add "HKCU\Software\Policies\Microsoft\Office\16.0\Excel\Security" /v blockco
 reg add "HKCU\Software\Policies\Microsoft\Office\16.0\PowerPoint\Security" /v blockcontentexecutionfrominternet /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Office\16.0\Word\Security" /v vbawarnings /t REG_DWORD /d 4 /f
 reg add "HKCU\Software\Policies\Microsoft\Office\16.0\Publisher\Security" /v vbawarnings /t REG_DWORD /d 4 /f
-reg add "HKCU\Software\Policies\Microsoft\Office\19.0\Outlook\Security" /v markinternalasunsafe /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Policies\Microsoft\Office\19.0\Word\Security" /v blockcontentexecutionfrominternet /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Policies\Microsoft\Office\19.0\Excel\Security" /v blockcontentexecutionfrominternet /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Policies\Microsoft\Office\19.0\PowerPoint\Security" /v blockcontentexecutionfrominternet /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Policies\Microsoft\Office\19.0\Word\Security" /v vbawarnings /t REG_DWORD /d 4 /f
-reg add "HKCU\Software\Policies\Microsoft\Office\19.0\Publisher\Security" /v vbawarnings /t REG_DWORD /d 4 /f
 ::
 :: Harden all version of MS Office itself against DDE malspam attacks
 :: Disables Macros, enables ProtectedView
@@ -416,12 +410,12 @@ powershell.exe -command "Get-AppxPackage *Duolingo* -AllUsers | Remove-AppxPacka
 powershell.exe -command "Get-AppxPackage *Microsoft.BingNews* -AllUsers | Remove-AppxPackage"
 powershell.exe -command "Get-AppxPackage *Microsoft.Office.Sway* -AllUsers | Remove-AppxPackage"
 powershell.exe -command "Get-AppxPackage *Microsoft.Advertising.Xaml* -AllUsers | Remove-AppxPackage"
-powershell.exe -command "Get-AppxPackage *Microsoft.NET.Native.Framework.1.* -AllUsers | Remove-AppxPackage"
 powershell.exe -command "Get-AppxPackage *Microsoft.Services.Store.Engagement* -AllUsers | Remove-AppxPackage"
 powershell.exe -command "Get-AppxPackage *ActiproSoftware* -AllUsers | Remove-AppxPackage"
 powershell.exe -command "Get-AppxPackage *EclipseManager* -AllUsers | Remove-AppxPackage"
 powershell.exe -command "Get-AppxPackage *SpotifyAB.SpotifyMusic* -AllUsers | Remove-AppxPackage"
 powershell.exe -command "Get-AppxPackage *king.com.* -AllUsers | Remove-AppxPackage"
+powershell.exe -command "Get-AppxPackage *Microsoft.NET.Native.Framework.1.* -AllUsers | Remove-AppxPackage"
 ::
 ::#######################################################################
 :: Extra settings commented out but worth considering
