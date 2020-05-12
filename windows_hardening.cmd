@@ -524,4 +524,5 @@ powershell.exe -command "Get-AppxPackage *Microsoft.NET.Native.Framework.1.* -Al
 
 :: Frameworks and benchmarks
 :: STIG https://www.stigviewer.com/stig/windows_10/
+::
 pause
