@@ -252,8 +252,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CredentialsDelegation" /v Allo
 :: Stop WinRM
 net stop WinRM
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" /v AllowUnencryptedTraffic /t REG_DWORD /d 0 /f
-:: Prevent unauthenticated RPC connections
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Rpc" /v RestrictRemoteClients /t REG_DWORD /d 1 /f
 :: Disable WinRM Client Digiest authentication
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client" /v AllowDigest /t REG_DWORD /d 0 /f
 :: Disabling RPC usage from a remote asset interacting with scheduled tasks
@@ -520,6 +518,9 @@ powershell.exe -command "Get-AppxProvisionedPackage -Online | Where-Object {$_.D
 :: Enforce LDAP client signing
 :: Commented out as most consumers don't use LDAP auth
 :: reg add "HKLM\SYSTEM\CurrentControlSet\Services\LDAP" /v LDAPClientIntegrity /t REG_DWORD /d 1 /f
+::
+:: Prevent unauthenticated RPC connections
+:: reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Rpc" /v RestrictRemoteClients /t REG_DWORD /d 1 /f
 ::
 ::#######################################################################
 :: References
