@@ -296,7 +296,7 @@ Netsh.exe advfirewall firewall add rule name="Block cscript.exe netconns" progra
 Netsh.exe advfirewall firewall add rule name="Block runscripthelper.exe netconns" program="%systemroot%\system32\runscripthelper.exe" protocol=tcp dir=out enable=yes action=block profile=any
 Netsh.exe advfirewall firewall add rule name="Block hh.exe netconns" program="%systemroot%\system32\hh.exe" protocol=tcp dir=out enable=yes action=block profile=any
 ::
-Netsh.exe int ipv6 set int *INTERFACENUMBER* rabaseddnsconfig=disable
+::Netsh.exe int ipv6 set int *INTERFACENUMBER* rabaseddnsconfig=disable
 ::https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2020-16898
 ::#######################################################################
 :: Windows 10 Privacy Settings
