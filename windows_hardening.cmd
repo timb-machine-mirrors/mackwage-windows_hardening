@@ -180,7 +180,7 @@ powershell.exe Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWind
 powershell.exe Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -norestart
 ::
 :: Prioritize ECC Curves with longer keys
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Cryptography\Configuration\SSL\00010002" /v EccCurves /t REG_MULTI_SZ /d NistP384,NistP256 /f
+::reg add "HKLM\SOFTWARE\Policies\Microsoft\Cryptography\Configuration\SSL\00010002" /v EccCurves /t REG_MULTI_SZ /d NistP384,NistP256 /f
 :: Prevent Kerberos from using DES or RC4
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters" /v SupportedEncryptionTypes /t REG_DWORD /d 2147483640 /f
 :: Encrypt and sign outgoing secure channel traffic when possible
